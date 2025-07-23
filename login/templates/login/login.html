@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block css_content %}
+{% load socialaccount %}
+
+<style>
+    .container .row{
+        height:90vh;
+    }
+</style>
+{% endblock  %}
+
+{% block content %}
+<div class = 'container'>
+    <div class = 'row justify-content-center align-items-center'>
+        <div class = 'col-4'> 
+            <form action='/login/' method ='post'>
+                {%csrf_token%}
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>   
+
+                <hr>
+                <div class="text-center mt-3">
+                    <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger btn-block mb-2">Login with Google</a>
+                    <a href="{% provider_login_url 'github' %}" class="btn btn-outline-dark btn-block">Login with GitHub</a>
+                </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
