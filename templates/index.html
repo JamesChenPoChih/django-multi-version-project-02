@@ -1,0 +1,46 @@
+{% extends "base.html" %}  {# 繼承 base.html 主模板 #}
+{% load static %}          {# 載入 static 模板標籤，方便使用靜態資源 #}
+
+{% block title %}Welcome to Hacker Moose 🦌{% endblock %}  {# 頁面標題 #}
+
+{% block css_content %}  {# 自訂 CSS，主要是 hero 區塊樣式 #}
+<style>
+  .hero {
+    background-image: url("{% static 'images/moose-bg.jpg' %}");  /* 背景圖片 */
+    background-size: cover;         /* 背景覆蓋整個區塊 */
+    background-position: center;   /* 背景置中 */
+    color: white;                  /* 文字白色 */
+    height: 80vh;                  /* 區塊高度約 80% 視窗高度 */
+    display: flex;                 /* 使用 Flex 排版 */
+    flex-direction: column;        /* 垂直排列 */
+    justify-content: center;       /* 垂直置中 */
+    text-align: center;            /* 文字置中 */
+    padding: 20px;                 /* 內距 */
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;             /* 標題字體大小 */
+    font-weight: bold;             /* 粗體 */
+    text-shadow: 2px 2px 5px #000; /* 文字陰影，讓字更突出 */
+  }
+
+  .hero p {
+    font-size: 1.3rem;             /* 副標字體大小 */
+    text-shadow: 1px 1px 3px #000; /* 副標陰影 */
+  }
+
+  .hero .btn {
+    margin-top: 20px;              /* 按鈕上方間距 */
+    padding: 12px 30px;            /* 按鈕內距 */
+    font-size: 1.1rem;             /* 按鈕字體大小 */
+  }
+</style>
+{% endblock %}
+
+{% block content %}  {# 主內容區塊 #}
+<div class="hero">
+  <h1>Welcome to Hacker Moose AI 🦌</h1>        {# 主要歡迎標題 #}
+  <p>We are the moose who know AI best — bringing technology to your future.</p>  {# 副標語 #}
+  <a href="/products/" class="btn btn-warning">Go to Shop</a>  {# 按鈕，連到產品頁 #}
+</div>
+{% endblock %}

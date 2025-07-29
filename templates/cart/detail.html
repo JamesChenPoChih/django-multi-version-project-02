@@ -1,0 +1,29 @@
+<!-- templates/cart/detail.html -->
+
+<!-- 返回首頁連結 -->
+<p><a href="{% url 'index' %}">← 返回首頁</a></p>
+
+<h2>Shopping Cart</h2>
+
+<ul>
+  {% for item in cart %}
+    <li>
+      {{ item.name }} - ${{ item.price }} × {{ item.quantity }}
+      <form action="{% url 'cart:cart_remove' item.product_id %}" method="post"></form>
+        {% csrf_token %}
+        <button type="submit">Remove</button>
+      </form>
+    </li>
+  {% empty %}
+    <li>Your cart is empty.</li>
+  {% endfor %}
+</ul>
+
+<p>Total: ${{ cart.total_price }}</p>
+
+<!-- 「繼續購物」按鈕，導向商品列表 -->
+<a href="{% url 'products:product_list' %}">
+  <button type="button">Continue Shopping</button> <!-- Keep Shopping -->
+</a>
+
+
