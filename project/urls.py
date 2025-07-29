@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+<<<<<<< HEAD
 from django.urls import path
 from django.urls import include
 from login import views as login_views
@@ -63,3 +64,19 @@ if settings.DEBUG:
 #     path('', lambda request: render(request, 'index.html'), name='home'),
 
 # ]
+=======
+# from django.urls import path
+from django.urls import path
+from django.urls import include
+from login import views as login_views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',login_views.index),
+    path('login/',login_views.login),
+    path('register/',login_views.register),
+    path('logout/',login_views.logout),
+
+    # Add Oath,根據ChatGPT修改
+    path('accounts/', include('allauth.urls')),
+]
+>>>>>>> ac2ec2d9ee88bfa7908b76da7aeadd01fe101aeb

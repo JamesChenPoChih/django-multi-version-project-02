@@ -1,10 +1,15 @@
 from django.shortcuts import render,redirect
 from .import models
 # Create your views here.
+<<<<<<< HEAD
 
 # 設定Index,原有的是login.html,改成index.html (2025-0728)
 def index(request):
     return render(request, 'index.html')
+=======
+def index(request):
+    return render(request, 'login/index.html')
+>>>>>>> ac2ec2d9ee88bfa7908b76da7aeadd01fe101aeb
 
 def login(request):
     if request.session.get('loginFlag'):
