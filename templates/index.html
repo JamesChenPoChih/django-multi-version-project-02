@@ -1,46 +1,98 @@
-{% extends "base.html" %}  {# 繼承 base.html 主模板 #}
-{% load static %}          {# 載入 static 模板標籤，方便使用靜態資源 #}
+{% extends "base.html" %}
+{% load static %}
 
-{% block title %}Welcome to Hacker Moose 🦌{% endblock %}  {# 頁面標題 #}
+{% block title %}Hacker Moose AI - SaaS Solutions{% endblock %}
 
-{% block css_content %}  {# 自訂 CSS，主要是 hero 區塊樣式 #}
+{% block css_content %}
 <style>
   .hero {
-    background-image: url("{% static 'images/moose-bg.jpg' %}");  /* 背景圖片 */
-    background-size: cover;         /* 背景覆蓋整個區塊 */
-    background-position: center;   /* 背景置中 */
-    color: white;                  /* 文字白色 */
-    height: 80vh;                  /* 區塊高度約 80% 視窗高度 */
-    display: flex;                 /* 使用 Flex 排版 */
-    flex-direction: column;        /* 垂直排列 */
-    justify-content: center;       /* 垂直置中 */
-    text-align: center;            /* 文字置中 */
-    padding: 20px;                 /* 內距 */
+    background-image: url("{% static 'images/moose-bg.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
   }
 
   .hero h1 {
-    font-size: 3.5rem;             /* 標題字體大小 */
-    font-weight: bold;             /* 粗體 */
-    text-shadow: 2px 2px 5px #000; /* 文字陰影，讓字更突出 */
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px #000;
   }
 
   .hero p {
-    font-size: 1.3rem;             /* 副標字體大小 */
-    text-shadow: 1px 1px 3px #000; /* 副標陰影 */
+    font-size: 1.3rem;
+    text-shadow: 1px 1px 3px #000;
   }
 
   .hero .btn {
-    margin-top: 20px;              /* 按鈕上方間距 */
-    padding: 12px 30px;            /* 按鈕內距 */
-    font-size: 1.1rem;             /* 按鈕字體大小 */
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+  }
+
+  .company-background {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+  }
+
+  .company-background h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+
+  .company-background .feature {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .company-background .feature i {
+    font-size: 3rem;
+    color: #ffc107;
+    margin-bottom: 20px;
+  }
+
+  .company-background .feature h4 {
+    font-weight: bold;
+    margin-bottom: 15px;
   }
 </style>
 {% endblock %}
 
-{% block content %}  {# 主內容區塊 #}
+{% block content %}
 <div class="hero">
-  <h1>Welcome to Hacker Moose AI 🦌</h1>        {# 主要歡迎標題 #}
-  <p>We are the moose who know AI best — bringing technology to your future.</p>  {# 副標語 #}
-  <a href="/products/" class="btn btn-warning">Go to Shop</a>  {# 按鈕，連到產品頁 #}
+  <h1>Welcome to Hacker Moose AI 🦌</h1>
+  <p>We are the moose who know AI best — bringing technology to your future.</p>
+  <a href="/products/" class="btn btn-warning">Go to Shop</a>
+</div>
+
+<div class="company-background">
+  <div class="container">
+    <h2>About Our Company</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Our Mission</h4>
+        <p>
+          At Hacker Moose AI, we specialize in providing cutting-edge AI-powered SaaS solutions. Our mission is to empower businesses by automating complex processes, providing deep insights from data, and enabling intelligent decision-making. We believe that AI is the key to unlocking unprecedented efficiency and innovation.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <h4>Why Choose Us?</h4>
+        <p>
+          Our team of experts is dedicated to developing robust and scalable AI solutions tailored to your specific needs. We are committed to delivering excellence and ensuring that our clients stay ahead of the curve in a rapidly evolving technological landscape. With Hacker Moose AI, you're not just adopting a service; you're partnering with a team that is invested in your success.
+        </p>
+      </div>
+    </div>
+    <div class="row text-center mt-5">
+      <div class="col">
+        <a href="/contact/" class="btn btn-primary">Contact Us</a>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

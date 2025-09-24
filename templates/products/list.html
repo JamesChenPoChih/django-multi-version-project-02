@@ -2,22 +2,35 @@
 {% load static %}
 
 {% block content %}
-<h1>Product List</h1> 
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
-
-  {% for product in products %}
-    <div style="border: 1px solid #ccc; padding: 10px; width: 200px;">
-      <img src="/static/{{ product.image }}" alt="{{ product.name }}" width="180">
-      <h3>{{ product.name }}</h3>
-      <p>Price：${{ product.price }}</p>
-      <form action="{% url 'cart:cart_add' product.id %}" method="post">
-        {% csrf_token %}
-        <input type="number" name="quantity" value="1" min="1" max="{{ product.quantity }}">
-        <button type="submit">Add to Cart</button>
-      </form>
-    </div>
-  {% endfor %}
-
+<div class="container">
+  <h1 class="my-4">Product List</h1>
+  <div class="row">
+    {% for product in products %}
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="/static/{{ product.image }}" alt="{{ product.name }}"></a>
+          <div class="card-body">
+            <h4 class="card-title">
+              <a href="#">{{ product.name }}</a>
+            </h4>
+            <h5>${{ product.price }}</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+          </div>
+          <div class="card-footer">
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+              {% csrf_token %}
+              <div class="input-group">
+                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-primary">Add to Cart</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}
 

@@ -14,31 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-<<<<<<< HEAD
-from django.urls import path
-from django.urls import include
-from login import views as login_views
-from django.shortcuts import render
-
-from django.conf.urls.static import static
+from django.urls import path, include
 from django.conf import settings
-from cart import views as cart_views
-
+from django.conf.urls.static import static
+from login import views as login_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     path('', login_views.index, name='index'),  
-    path('login/', login_views.login),
-    path('register/', login_views.register),
-    path('logout/', login_views.logout),
+    path('login/', login_views.login, name='login'),
+    path('register/', login_views.register, name='register'),
+    path('logout/', login_views.logout, name='logout'),
 
+    # Allauth URLs
     path('accounts/', include('allauth.urls')),
+    
+    # App URLs
     path('cart/', include('cart.urls')),
     path('products/', include('products.urls')),
-
-    path('cart/remove/<int:product_id>/', cart_views.cart_remove, name='cart_remove'), # remove from cart
-
 ]
 
 if settings.DEBUG:
@@ -46,37 +40,5 @@ if settings.DEBUG:
 
 
 
-
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('',login_views.index),
-#     path('login/',login_views.login),
-#     path('register/',login_views.register),
-#     path('logout/',login_views.logout),
-
-#     # Add Oath,根據ChatGPT修改
-#     path('accounts/', include('allauth.urls')),
-#     ## Add Cart購物車- 2025-0727,urls對應 cart的urls
-#     path('cart/', include('cart.urls')),
-#     path('products/', include('products.urls')),
-#     ## 新增 Index
-#     path('', lambda request: render(request, 'index.html'), name='home'),
-
-# ]
-=======
-# from django.urls import path
-from django.urls import path
-from django.urls import include
-from login import views as login_views
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',login_views.index),
-    path('login/',login_views.login),
-    path('register/',login_views.register),
-    path('logout/',login_views.logout),
-
-    # Add Oath,根據ChatGPT修改
-    path('accounts/', include('allauth.urls')),
-]
->>>>>>> ac2ec2d9ee88bfa7908b76da7aeadd01fe101aeb
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,15 +1,15 @@
 from django.shortcuts import render,redirect
 from .import models
 # Create your views here.
-<<<<<<< HEAD
+
 
 # 設定Index,原有的是login.html,改成index.html (2025-0728)
 def index(request):
     return render(request, 'index.html')
-=======
-def index(request):
-    return render(request, 'login/index.html')
->>>>>>> ac2ec2d9ee88bfa7908b76da7aeadd01fe101aeb
+
+# def index(request):
+#     return render(request, 'login/index.html')
+
 
 def login(request):
     if request.session.get('loginFlag'):
@@ -67,3 +67,23 @@ def logout(request):
         return redirect('/')
 
     return redirect('/')
+
+def login_view(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        
+        # 假設你用自己的方法驗證使用者
+        user = authenticate(username=username, password=password)  # 或你的驗證函式
+        if user is not None:
+            # 驗證成功，設定 session
+            request.session['loginFlag'] = True
+            request.session['username'] = user.username  # 或你要用的名稱
+
+            # 可能跳轉到首頁或其他頁面
+            return redirect('/')
+        else:
+            # 驗證失敗，回傳錯誤訊息
+            return render(request, "login.html", {"error": "帳號或密碼錯誤"})
+    else:
+        return render(request, "login.html")

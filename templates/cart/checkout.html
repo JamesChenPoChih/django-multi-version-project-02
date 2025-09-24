@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-7">
+            <h2>Checkout</h2>
+            <hr>
+            <p>Please review your order and proceed to payment.</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Pay with Card</h5>
+                    <p class="card-text">You will be redirected to Stripe to complete your payment securely.</p>
+                    <button id="checkout-button" class="btn btn-primary">Proceed to Payment</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <h4>Order Summary</h4>
+            <hr>
+            <ul class="list-group mb-3">
+                {% for item in cart %}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">{{ item.name }}</h6>
+                        <small class="text-muted">Quantity: {{ item.quantity }}</small>
+                    </div>
+                    <span class="text-muted">${{ item.price|floatformat:2 }}</span>
+                </li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between font-weight-bold">
+                    <span>Total (USD)</span>
+                    <strong>${{ cart.total_price|floatformat:2 }}</strong>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'cart:cart_detail' %}" class="btn btn-secondary">Back to Cart</a>
+    </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const publishableKey = "{{ stripe_publishable_key }}";
+        if (!publishableKey || publishableKey === 'None') {
+            console.error("Stripe publishable key is not set. Please add it to your .env file and restart the server.");
+            alert("Payment system is not configured. Please contact support.");
+            return;
+        }
+
+        const stripe = Stripe(publishableKey);
+        const checkoutButton = document.getElementById("checkout-button");
+
+        checkoutButton.addEventListener("click", function () {
+            checkoutButton.disabled = true;
+            checkoutButton.textContent = 'Processing...';
+
+            fetch("{% url 'cart:create_checkout_session' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(function (response) {
+                if (!response.ok) {
+                    // Handle non-JSON error responses (like a 500 server error)
+                    return response.text().then(text => { 
+                        throw new Error(`Server responded with ${response.status}: ${text}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(function (session) {
+                if (session.id) {
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                } else if (session.error) {
+                    throw new Error(session.error);
+                }
+            })
+            .catch(function (error) {
+                console.error("Stripe Checkout Error:", error);
+                alert(`An error occurred: ${error.message}. Please check the console for details and ensure your API keys are correct.`);
+                checkoutButton.disabled = false;
+                checkoutButton.textContent = 'Proceed to Payment';
+            });
+        });
+    });
+</script>
+{% endblock %}
