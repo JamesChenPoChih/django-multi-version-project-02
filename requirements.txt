@@ -5,3 +5,4 @@ Django
 gunicorn
 requests>=2.31.0
 PyJWT
+cryptography
