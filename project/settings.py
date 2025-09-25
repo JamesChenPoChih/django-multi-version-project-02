@@ -15,6 +15,7 @@ from pathlib import Path
 
 import os
 import environ
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -143,9 +144,27 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DATABASES = {
-    'default': env.db()
-}
+if os.environ.get("DATABASE_URL"):
+    # Render / Heroku 上：用環境變數的 PostgreSQL
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ["DATABASE_URL"],
+            conn_max_age=600,
+            ssl_require=True
+        )
+    }
+else:
+    # 本地：連線到 local PostgreSQL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'your_local_db_name',      # ← 你本地 PostgreSQL 的資料庫名稱
+            'USER': 'your_local_username',     # ← 本地 PostgreSQL 使用者
+            'PASSWORD': 'your_local_password', # ← 本地 PostgreSQL 密碼
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
