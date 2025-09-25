@@ -3,3 +3,4 @@ psycopg2-binary
 django-environ
 Django
 gunicorn
+requests>=2.31.0
