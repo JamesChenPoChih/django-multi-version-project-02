@@ -142,10 +142,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+import dj_database_url
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if os.environ.get("DATABASE_URL"):
-    # Render / Heroku 上：用環境變數的 PostgreSQL
     DATABASES = {
         'default': dj_database_url.config(
             default=os.environ["DATABASE_URL"],
@@ -154,13 +155,12 @@ if os.environ.get("DATABASE_URL"):
         )
     }
 else:
-    # 本地：連線到 local PostgreSQL
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'your_local_db_name',      # ← 你本地 PostgreSQL 的資料庫名稱
-            'USER': 'your_local_username',     # ← 本地 PostgreSQL 使用者
-            'PASSWORD': 'your_local_password', # ← 本地 PostgreSQL 密碼
+            'NAME': 'your_local_db_name',
+            'USER': 'your_local_username',
+            'PASSWORD': 'your_local_password',
             'HOST': 'localhost',
             'PORT': '5432',
         }
