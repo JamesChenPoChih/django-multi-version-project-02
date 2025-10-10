@@ -156,14 +156,11 @@ if os.environ.get("DATABASE_URL"):
         )
     }
 else:
+    # 本地或建置階段：使用 SQLite
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'your_local_db_name',      # ← 你本地 PostgreSQL 的資料庫名稱
-            'USER': 'your_local_username',     # ← 本地 PostgreSQL 使用者
-            'PASSWORD': 'your_local_password', # ← 本地 PostgreSQL 密碼
-            'HOST': 'localhost',
-            'PORT': '5432',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
