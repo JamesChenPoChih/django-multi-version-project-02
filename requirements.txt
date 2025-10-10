@@ -3,6 +3,7 @@ psycopg2-binary
 django-environ
 Django
 gunicorn
+whitenoise
 requests>=2.31.0
 PyJWT
 cryptography

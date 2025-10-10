@@ -80,6 +80,7 @@ AUTHENTICATION_BACKENDS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -158,9 +159,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'your_local_db_name',
-            'USER': 'your_local_username',
-            'PASSWORD': 'your_local_password',
+            'NAME': 'your_local_db_name',      # ← 你本地 PostgreSQL 的資料庫名稱
+            'USER': 'your_local_username',     # ← 本地 PostgreSQL 使用者
+            'PASSWORD': 'your_local_password', # ← 本地 PostgreSQL 密碼
             'HOST': 'localhost',
             'PORT': '5432',
         }
