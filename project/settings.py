@@ -27,7 +27,7 @@ environ.Env.read_env(BASE_DIR / '.env')  # 這一行是讀取你的 .env 檔案
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY', default='django-insecure-dummy-for-build-only')
 DEBUG = env.bool('DEBUG', default=False)
 
 
