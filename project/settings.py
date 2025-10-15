@@ -146,11 +146,14 @@ WSGI_APPLICATION = 'project.wsgi.application'
 import dj_database_url
 from decouple import config
 
+
+
+# 2025-1015 修改成Neon Database
+
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
-
         'default': dj_database_url.config(
             default=config(
                 'DATABASE_URL',
@@ -158,7 +161,7 @@ if os.environ.get("DATABASE_URL"):
             ),
             conn_max_age=600,
             ssl_require=True
-
+        )
     }
 else:
     # 本地或建置階段：使用 SQLite
