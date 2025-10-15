@@ -151,13 +151,14 @@ from decouple import config
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
 
-        'default': dj_database_url.config(default=config('DATABASE_URL'))
-        # 2025-1014 Tried to connect Render
-        # 'default': dj_database_url.config(
-        #     default=os.environ["DATABASE_URL"],
-        #     conn_max_age=600,
-        #     ssl_require=True
-        # )
+        'default': dj_database_url.config(
+            default=config(
+                'DATABASE_URL',
+                default='postgresql://neondb_owner:npg_mh4KeNn7PXEq@ep-tiny-frost-afql1n7q-pooler.c-2.us-west-2.aws.neon.tech/neondb?sslmode=require'
+            ),
+            conn_max_age=600,
+            ssl_require=True
+
     }
 else:
     # 本地或建置階段：使用 SQLite
