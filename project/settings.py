@@ -156,7 +156,7 @@ if os.environ.get("DATABASE_URL"):
         #     default=os.environ["DATABASE_URL"],
         #     conn_max_age=600,
         #     ssl_require=True
-        )
+        # )
     }
 else:
     # 本地或建置階段：使用 SQLite
