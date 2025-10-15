@@ -149,10 +149,13 @@ import dj_database_url
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if os.environ.get("DATABASE_URL"):
     DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ["DATABASE_URL"],
-            conn_max_age=600,
-            ssl_require=True
+
+        'default': dj_database_url.config(default=config('DATABASE_URL'))
+        # 2025-1014 Tried to connect Render
+        # 'default': dj_database_url.config(
+        #     default=os.environ["DATABASE_URL"],
+        #     conn_max_age=600,
+        #     ssl_require=True
         )
     }
 else:
