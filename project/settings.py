@@ -144,7 +144,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'project.wsgi.application'
 
 import dj_database_url
-from decouple import config
+
 
 
 
@@ -152,19 +152,15 @@ from decouple import config
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-if os.environ.get("DATABASE_URL"):
+# If a DATABASE_URL environment variable is set, use it.
+# Otherwise, fall back to SQLite for local development.
+if 'DATABASE_URL' in os.environ:
     DATABASES = {
-        'default': dj_database_url.config(
-            default=config(
-                'DATABASE_URL',
-                default='postgresql://neondb_owner:npg_mh4KeNn7PXEq@ep-tiny-frost-afql1n7q-pooler.c-2.us-west-2.aws.neon.tech/neondb?sslmode=require'
-            ),
-            conn_max_age=600,
-            ssl_require=True
-        )
+        'default': dj_database_url.config(conn_max_age=600)
     }
+    # Ensure SSL is required for PostgreSQL connections
+    DATABASES['default']['OPTIONS'] = {'sslmode': 'require'}
 else:
-    # 本地或建置階段：使用 SQLite
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

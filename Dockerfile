@@ -38,7 +38,7 @@ EXPOSE 8000
 # Run the application with Gunicorn
 CMD gunicorn project.wsgi:application --bind 0.0.0.0:$PORT
 
-COPY .env /app/.env
+# COPY .env /app/.env
 
 # Run the requirements
 RUN pip install --no-cache-dir -r requirements.txt
